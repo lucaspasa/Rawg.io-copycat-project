@@ -32,7 +32,7 @@ export const Sidebar = ({sendDataToParent}) => {
             last30Days = `${year}-${(month-1) < 10 ? "0"+ (month-1): month -1}-${28-(31-day) < 10 ? "0"+ 28-(31-day): 28-(31-day)}`; //assuming 28 days in the month since that is the minimum.
         }
     } else {
-        last30Days = `${year}-${month}-01`; //month stays the same, and day will be the first of the month
+        last30Days = `${year}-${month}-01`; // Month stays the same, and day will be the first of the month
     }
 
     // Calculate the next 30 days date with leading zero if needed
