@@ -18,7 +18,6 @@ export const Sidebar = ({sendDataToParent}) => {
     month = month < 10 ? "0" + month : month; // Add leading zero if month is less than 10
     let year = date.getFullYear();
     let currentDate = `${year}-${month}-${day}`;
-    console.log(currentDate); 
     let last30Days
     let last7Days
     let next7Days
@@ -26,10 +25,12 @@ export const Sidebar = ({sendDataToParent}) => {
     
     // Calculate the last 30 days date with leading zero if needed
     if (day < 31){
+        let dateDifference = 31 - Number(day); // Calculate how many days to subtract to get to the last 30 days
+        let lastMonth = Number(month) - 1;
         if (month == 1){
             last30Days = `${year - 1}-12-${day + 1}`;
         } else {
-            last30Days = `${year}-${(month-1) < 10 ? "0"+ (month-1): month -1}-${28-(31-day) < 10 ? "0"+ 28-(31-day): 28-(31-day)}`; //assuming 28 days in the month since that is the minimum.
+            last30Days = `${year}-${lastMonth < 10 ? "0"+ lastMonth: lastMonth}-${31-dateDifference < 10 ? "0"+ (31-dateDifference): "0"+ (31-dateDifference)}`;
         }
     } else {
         last30Days = `${year}-${month}-01`; // Month stays the same, and day will be the first of the month
@@ -37,13 +38,16 @@ export const Sidebar = ({sendDataToParent}) => {
 
     // Calculate the next 30 days date with leading zero if needed
     if (day > 1){
+        let nextmonth = Number(month) + 1;
         if (month == 12){
             next30Days = `${year + 1}-01-${day - 1}`;
         } else {
-            next30Days = `${year}-${month + 1 < 10 ? "0"+ (month + 1) : month + 1}-${day - 1}`;
+            next30Days = `${year}-${nextmonth < 10 ? "0"+ nextmonth : nextmonth}-${"0"+ (day - 1)}`;
         }
     } else {
         next30Days = `${year}-${month}-31`; //month stays the same, and day will be the last of the month
+        console.log("Day is less than 1. Next 30 days: "+next30Days);
+
     }
 
     // Calculate the last 7 days date with leading zero if needed
@@ -59,13 +63,16 @@ export const Sidebar = ({sendDataToParent}) => {
 
     // Calculate the next 7 days date with leading zero if needed
     if (day > 24){
+        let nextMonthDay = Number(day) - 24; // Calculate how many days to subtract to get to the next 7 days
+        
         if (month == 12){
             next7Days = `${year + 1}-01-${day - 24}`;
         } else {
-            next7Days = `${year}-${(month + 1) < 10 ? "0"+ (month+1): month +1}-${day - 24}`;
+            next7Days = `${year}-${(month + 1) < 10 ? "0"+ (month+1): month +1}-${nextMonthDay < 10 ? "0"+ nextMonthDay : nextMonthDay}`;
         }
     } else {
-        next7Days = `${year}-${month}-${day + 7 < 10 ? "0"+day + 7 : day + 7}`;
+        let nextWeekDay = Number(day) + 7; // Calculate how many days to add to get to the next 7 days
+        next7Days = `${year}-${month}-${nextWeekDay < 10 ? "0"+ nextWeekDay: nextWeekDay}`;
     }
 
     // use states
