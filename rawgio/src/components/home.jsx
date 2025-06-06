@@ -82,6 +82,14 @@ function Home() {
         });
         const data = response.data.results;
         console.log("Fetched data:", data); // Log fetched data
+        console.log("Paramaters used: Ordering: ", Ordering + ", Search: " + search + ", Parent Platforms: " + parentPlatforms + ", Metacritic: " + metacritic + ", Date Range: " + dateRange);
+        if (data.length === 0) {
+          console.log("No data found for the given parameters.");
+          setTest([]); // Set to empty array if no data found
+        }
+        else {
+          console.log("Data fetched successfully.");
+        }
         setTest(data); // Update state with fetched data
         setIsLoading(false); // Set loading to false after data is fetched
     }
@@ -97,7 +105,7 @@ function Home() {
       return <Loading />
     }
 
-  return  test ? test.map((value, index) => <GameCard platforms={test[index].platforms} image={test[index].background_image} key={index} gamename={test[index].name} added={test[index].added} /> ): <p>Loading...</p>
+  return  test ? test.map((value, index) => <GameCard tags={test[index].tags} platforms={test[index].platforms} image={test[index].background_image} key={index} gamename={test[index].name} added={test[index].added} /> ): <p>Loading...</p>
 }
     
 

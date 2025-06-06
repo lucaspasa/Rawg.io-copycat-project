@@ -93,9 +93,9 @@ export const Sidebar = ({sendDataToParent}) => {
 
         <Stack className="list" align="start" as="ul" listStyleType="none" spacing={2}>
             <li className="sidebar-link" onClick={() => {setDateRange(last30Days+","+currentDate); setMetacritic("")}}><Box className="sidebar-icon" ><FaStar /></Box>Last 30 Days</li>
-            <li className="sidebar-link" onClick={() => setDateRange(last7Days+","+currentDate)}><Box className="sidebar-icon" ><BsFire /></Box>This Week</li>
-            <li className="sidebar-link" onClick={() => setDateRange(currentDate+","+next7Days)}><Box className="sidebar-icon" ><FaFastForward /></Box>Next Week</li>
-            <li className="sidebar-link" onClick={() => setDateRange(currentDate+","+next30Days)}><Box className="sidebar-icon" id="sidebar-icon-31" >31</Box>Release Calander</li>
+            <li className="sidebar-link" onClick={() => {setDateRange(last7Days+","+currentDate); setMetacritic("")}}><Box className="sidebar-icon" ><BsFire /></Box>This Week</li>
+            <li className="sidebar-link" onClick={() => {setDateRange(currentDate+","+next7Days); setMetacritic("")}}><Box className="sidebar-icon" ><FaFastForward /></Box>Next Week</li>
+            <li className="sidebar-link" onClick={() => {setDateRange(currentDate+","+next30Days); setMetacritic("")}}><Box className="sidebar-icon" id="sidebar-icon-31" >31</Box>Release Calander</li>
         </Stack>
     </Stack>
     <Stack align="start">
