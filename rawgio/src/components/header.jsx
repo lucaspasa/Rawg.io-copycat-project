@@ -23,9 +23,9 @@ function Header({sendDataToParent}) {
 
   return (
     <>
-      <Box display="flex" justifyContent="space-between" alignItems="center" p={4} color="white">
+      <Box w="95vw" display="flex" justifyContent="space-between" alignItems="center" p={4} color="white">
         <Box onClick={() => changeValues("", "80, 100")} className="RAWG-logo" alignSelf="left" mr="8" fontSize="2xl" fontWeight="bold" letterSpacing="wide">R A W G</Box>
-        <Badge p="2" mr="4" fontSize="md" fontWeight="semibold" variant="solid">
+        <Badge className="rate-top-games" p="2" mr="4" fontSize="md" fontWeight="semibold" variant="solid">
           <TbTargetArrow />
         Rate top games</Badge>
         <Searchbar sendDataToParent={sendDataToParent} rounded="mg"/>

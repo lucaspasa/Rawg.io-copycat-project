@@ -1,4 +1,4 @@
-import { Button, Card, Image, Text } from "@chakra-ui/react"
+import { Box, Button, Card, Image, Text, Separator } from "@chakra-ui/react"
 import { FaLinux, FaXbox, FaPlaystation, FaWindows, FaApple, FaPlus } from "react-icons/fa";
 import { SiNintendo } from "react-icons/si";
 import { IoLogoAppleAppstore } from "react-icons/io5";
@@ -11,7 +11,7 @@ import { TbSquareRoundedLetterN } from "react-icons/tb";
 
 
 
-export const GameCard = ({gamename = "Game title", image, tags = [{"name": "placeholder"}], platforms = [], added = 0}) => {  
+export const GameCard = ({handleChangeToGame, gamename = "Game title", image, rating = "not rated", id = null, genres = [], released = "No date given", tags = [{"name": "placeholder"}], platforms = [], added = 0}) => {  
     
 
   let platformIcons = []
@@ -22,6 +22,8 @@ export const GameCard = ({gamename = "Game title", image, tags = [{"name": "plac
       tagsNames = tags.map((tag) => tag.name);
     }
   let NSFW = false;
+  let genreList = [genres.map((genre) => " " + genre.name)];
+  genreList = genreList.join(",  "); // join the genres with a comma and space
 
   let playstationStr = /PlayStation./;
   let ps = /PS./;
@@ -33,41 +35,41 @@ export const GameCard = ({gamename = "Game title", image, tags = [{"name": "plac
     let platformName = "not found";
 
     if (playstationStr.test(platform) || ps.test(platform)){
-      element = <FaPlaystation key={platform} />;
+      element = <FaPlaystation className="platform-icon" key={platform} />;
       platformName = "playstation"
     }
     if (xbox.test(platform)) {
-      element = <FaXbox key={platform} />;
+      element = <FaXbox className="platform-icon"key={platform} />;
       platformName = "XBOX"
     }
     if (nintendo.test(platform)) {
-      element = <TbSquareRoundedLetterN  key={platform} />;
+      element = <TbSquareRoundedLetterN className="platform-icon" key={platform} />;
       platformName = "NINTENDO"
 
     }
     if (platform === "Linux") {
-      element = <FaLinux key={platform} />;
+      element = <FaLinux className="platform-icon" key={platform} />;
       platformName = "LINUX"
 
     }
     if (platform === "PC") {
-      element = <FaWindows key={platform} />;
+      element = <FaWindows className="platform-icon" key={platform} />;
       platformName = "PC"
 
     }
 
     if (platform === "macOS") {
-      element = <FaApple key={platform} />;
+      element = <FaApple className="platform-icon" key={platform} />;
       platformName = "MACOS"
     }
 
     if (platform === "ios") {
-      element = <IoLogoAppleAppstore key={platform} />;
+      element = <IoLogoAppleAppstore className="platform-icon" key={platform} />;
       platformName = "ios"
     }
 
     if (platform === "Android") {
-      element = <DiAndroid  key={platform} />;
+      element = <DiAndroid className="platform-icon" key={platform} />;
       platformName = "andriod"
     }
     
@@ -111,10 +113,15 @@ export const GameCard = ({gamename = "Game title", image, tags = [{"name": "plac
             return "https://www.cato.org/sites/cato.org/files/styles/optimized/public/2024-04/video-games.jpg?itok=g4W8gHr3";
           }
     }
+
+    const updateID = () => {
+      handleChangeToGame(id, platformIcons);
+
+    }
     
-  
+
   return (
-    <Card.Root className="card" overflow="hidden">
+    <Card.Root className="card" >
       <Image
         src={imageUrl()}
         alt="Picture of the game"
@@ -126,18 +133,25 @@ export const GameCard = ({gamename = "Game title", image, tags = [{"name": "plac
         <Text textStyle="md" className="game-icons">{platformIcons}</Text>
         <Card.Description >
         </Card.Description>
-        <Card.Title textStyle="3xl" fontWeight="bold" letterSpacing="tight" mt="2">
+        <Card.Title onClick={updateID} className="card-game-name" textStyle="3xl" fontWeight="bold" letterSpacing="tight" mt="2">
         {gamename}
         </Card.Title>
+        <Button textStyle="md" className="button card-button-hover" variant="plain">
+          <FaPlus className="plus-button " /> {added.toLocaleString('en')}
+        </Button>
       </Card.Body>
       <Card.Footer  className="card-footer">
-        <Button textStyle="md" className="button" variant="plain">
-          <FaPlus className="plus-button" /> {added.toLocaleString('en')}
-        </Button>
+        
+        <Box className="hover-data">
+          <Text>Release Date: {released}</Text>
+          <Separator className="seperator" />
+          <Text>Genres: {genreList} </Text>
+          <Separator className="seperator"  />
+          <Text>Rating: {rating} </Text>
+        </Box>
       </Card.Footer>
     </Card.Root>
   )
 }
-
 
 export default GameCard;

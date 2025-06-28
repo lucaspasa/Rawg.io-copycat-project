@@ -8,6 +8,8 @@ import { Flex, Button, Box, Text } from '@chakra-ui/react';
 import OrderBySelect from './ui/order-by-select'
 import PlatformSelect from './ui/platforms-select';
 import Loading from './ui/loading';
+import GameInformation from './game-information';
+import rawgAPICall from '../services/api.jsx'
 
 function Home() {
   const parentPlatformsKey = {
@@ -20,7 +22,7 @@ function Home() {
     "nintendo": "7",
      "android": "8",}
 
-  const [test, setTest] = useState()
+  const [cardsData, setCardsData] = useState()
   const [Ordering, setOrdering] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [search, setSearch] = useState('')
@@ -29,6 +31,10 @@ function Home() {
   const [dateRange, setDateRange] = useState("")
   const [reload, setReload] = useState(false)
   const APIKey = '6327df6cc86546fb9e6d671c19a655fb';
+  const [individualGame, setIndividualGame] = useState(false);
+  const [individualGameId, setIndividualGameId] = useState(null);
+  const [individualGameData, setIndividualGameData] = useState(null);
+  const [individualPlatformIcons, setIndividualPlatformIcons] = useState([])
 
   
 
@@ -65,7 +71,36 @@ function Home() {
       setMetacritic(metacriticClear);
       setReload(!reload); // Trigger a reload incase the data is the same
   }
+
+  function handleChangeToIndividualGame(id, platformIcons) {
+    
+    setIndividualGameId(id);
+    console.log("Changing to individual game with ID:", id);
+    setIndividualPlatformIcons(platformIcons);
+    setIndividualGame(true);
+  }
+
+  function handleChangeToCards() {
+    setIndividualGame(false);
+  }
   
+ // Fetch data from API for individual game
+   useEffect(() => {
+    setIsLoading(true);
+
+    const individualGameCall = async () => {
+      let data;
+      data = await rawgAPICall(individualGameId);
+
+      setIndividualGameData(data);
+      setIsLoading(false);
+    }
+
+    individualGameCall();
+
+    }, [individualGameId]);
+
+  // Fetch Data from API for Cards
   useEffect(() => {
     setIsLoading(true)
       async function fetchData() {
@@ -85,12 +120,12 @@ function Home() {
         console.log("Paramaters used: Ordering: ", Ordering + ", Search: " + search + ", Parent Platforms: " + parentPlatforms + ", Metacritic: " + metacritic + ", Date Range: " + dateRange);
         if (data.length === 0) {
           console.log("No data found for the given parameters.");
-          setTest([]); // Set to empty array if no data found
+          setCardsData([]); // Set to empty array if no data found
         }
         else {
           console.log("Data fetched successfully.");
         }
-        setTest(data); // Update state with fetched data
+        setCardsData(data); // Update state with fetched data
         setIsLoading(false); // Set loading to false after data is fetched
     }
       fetchData();
@@ -100,20 +135,16 @@ function Home() {
 
   }, [Ordering, search, parentPlatforms, dateRange, reload]) // Add Ordering and search as dependencies
 
+  // Function to get games and render GameCard components
   function getGames() {
     if (isLoading) {
       return <Loading />
     }
+    return  cardsData ? cardsData.map((value, index) => <GameCard handleChangeToGame={handleChangeToIndividualGame} tags={cardsData[index].tags} genres={cardsData[index].genres} rating={cardsData[index].rating} id={cardsData[index].id} released={cardsData[index].released} platforms={cardsData[index].platforms} image={cardsData[index].background_image} key={index} gamename={cardsData[index].name} added={cardsData[index].added} /> ): <p>Loading...</p>
+    }
 
-  return  test ? test.map((value, index) => <GameCard tags={test[index].tags} platforms={test[index].platforms} image={test[index].background_image} key={index} gamename={test[index].name} added={test[index].added} /> ): <p>Loading...</p>
-}
-    
-
-  return (
-    <>
-      <Header sendDataToParent={handleDataFromSearch}/>
-      <Flex className="content">
-        <Sidebar sendDataToParent={handleDataFromSidebar} w="220px"/>
+    function displayCards() { 
+      return (
         <Box>
           <Flex direction="column" justifyContent="space-between" alignItems="start" p={4} color="white">
             <Text color="white" textStyle="7xl" fontWeight="bolder">New and Trending</Text>
@@ -127,6 +158,26 @@ function Home() {
             {getGames()}
           </div>
         </Box>
+      )
+    }
+    
+    function conditionalRendering() {
+      if (individualGame) {
+        if (isLoading) {
+          return <Loading />
+        }
+        return <GameInformation cardData={cardsData} platformIcons={individualPlatformIcons} data={individualGameData} ID={individualGameId}/>
+      } else {
+        return displayCards();
+      }
+    }
+
+  return (
+    <>
+      <Header sendDataToParent={handleDataFromSearch}/>
+      <Flex className="content">
+        <Sidebar handleChangeToCards={handleChangeToCards} sendDataToParent={handleDataFromSidebar} w="220px"/>
+        { conditionalRendering() }
         
 
       </Flex>
