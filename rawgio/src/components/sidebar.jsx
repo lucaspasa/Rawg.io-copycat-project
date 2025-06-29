@@ -103,8 +103,8 @@ export const Sidebar = ({sendDataToParent, handleChangeToCards}) => {
         <Box textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Top</Box>
 
         <Stack className="list" align="start" as="ul" listStyleType="none" spacing={2}>
-            <li className="sidebar-sort" onClick={() => setDateRange("2010-01-01,2018-12-31")}><Box className="sidebar-icon" ><HiMiniTrophy /></Box>Best of the year</li>
-            <li className="sidebar-sort" onClick={() => setDateRange("2010-01-01,2018-12-31")}><Box className="sidebar-icon" ><FaRankingStar /></Box>Popular in 2024</li>
+            <li className="sidebar-sort" onClick={() => {setDateRange("2025-01-01,2025-12-31"); setMetacritic("50, 100")}}><Box className="sidebar-icon" ><HiMiniTrophy /></Box>Best of the year</li>
+            <li className="sidebar-sort" onClick={() => {setDateRange("2024-01-01,2024-12-31"); setMetacritic("80, 100")}}><Box className="sidebar-icon" ><FaRankingStar /></Box>Popular in 2024</li>
             <li className="sidebar-sort" onClick={() => setDateRange("2010-01-01,2018-12-31")}><Box className="sidebar-icon" ><FaCrown  /></Box>All time top 250</li>
         </Stack>
     </Stack>

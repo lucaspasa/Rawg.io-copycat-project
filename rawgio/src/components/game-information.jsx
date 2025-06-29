@@ -53,7 +53,7 @@ let images = cardGameInfo.short_screenshots ? cardGameInfo.short_screenshots : [
         </Box>
         <Box mt="5" fontSize="md" >
           <Text>Overall rating {data.rating ? data.rating : "No Rating"}/5</Text>
-          <Text fontSize="xs" color="gray">{data.ratings_count ? data.ratings_count.toLocaleString('en') : "No ratings"} RATINGS</Text>
+          <Text fontSize="xs" color="gray">{data.ratings_count ? data.ratings_count.toLocaleString('en') : "0"} RATINGS</Text>
           </Box>
         <Box mt="5" fontSize="md" >
           <Button w="180px" className="game-information-rate-button" borderWidth="1px" borderColor="gray.700" fontSize="md" fontWeight="400" backgroundColor="gray.800" color="gray.300">Click to rate</Button> 

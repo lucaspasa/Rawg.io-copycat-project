@@ -1,4 +1,4 @@
-import { Box, Button, Card, Image, Text, Separator } from "@chakra-ui/react"
+import { Box, Button, Card, Image, Text, Separator, Flex } from "@chakra-ui/react"
 import { FaLinux, FaXbox, FaPlaystation, FaWindows, FaApple, FaPlus } from "react-icons/fa";
 import { SiNintendo } from "react-icons/si";
 import { IoLogoAppleAppstore } from "react-icons/io5";
@@ -24,6 +24,19 @@ export const GameCard = ({handleChangeToGame, gamename = "Game title", image, ra
   let NSFW = false;
   let genreList = [genres.map((genre) => " " + genre.name)];
   genreList = genreList.join(",  "); // join the genres with a comma and space
+
+  const options = {
+    year: 'numeric',
+    month: 'long', // 'long' for full month name, 'short' for abbreviated (e.g., 'Nov')
+    day: 'numeric'
+  };
+
+  let formattedDate = "";
+
+  if (released) {
+    formattedDate= new Date(released);
+    formattedDate = formattedDate.toLocaleDateString('en-US', options);
+  }
 
   let playstationStr = /PlayStation./;
   let ps = /PS./;
@@ -142,12 +155,14 @@ export const GameCard = ({handleChangeToGame, gamename = "Game title", image, ra
       </Card.Body>
       <Card.Footer  className="card-footer">
         
-        <Box className="hover-data">
-          <Text>Release Date: {released}</Text>
+        <Box className="hover-data" fontSize="sm" fontWeight="thin" letterSpacing="wide" >
+          <Flex justifyContent={"space-between"}><Text color="gray">Release Date:</Text> <Text> {formattedDate}</Text></Flex>
           <Separator className="seperator" />
-          <Text>Genres: {genreList} </Text>
+          <Flex justifyContent={"space-between"}><Text color="gray">Genres:</Text> <Text> {genreList}</Text></Flex>
           <Separator className="seperator"  />
-          <Text>Rating: {rating} </Text>
+          <Flex justifyContent={"space-between"}><Text color="gray">Rating:</Text> <Text> {rating}</Text></Flex>
+
+          <Text> </Text>
         </Box>
       </Card.Footer>
     </Card.Root>

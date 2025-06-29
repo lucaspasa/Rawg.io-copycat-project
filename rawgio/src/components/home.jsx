@@ -35,6 +35,8 @@ function Home() {
   const [individualGameId, setIndividualGameId] = useState(null);
   const [individualGameData, setIndividualGameData] = useState(null);
   const [individualPlatformIcons, setIndividualPlatformIcons] = useState([])
+  
+  
 
   
 

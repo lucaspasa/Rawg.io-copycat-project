@@ -133,6 +133,11 @@ background-color: white;
   transition: .5s;
 }
 
+.rate-top-games-link:hover {
+  transition: .5s;
+  color:black;
+} 
+
 .show-all{
     opacity: 0.5;
 }
