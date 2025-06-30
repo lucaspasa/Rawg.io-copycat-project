@@ -35,6 +35,7 @@ function Home() {
   const [individualGameId, setIndividualGameId] = useState(null);
   const [individualGameData, setIndividualGameData] = useState(null);
   const [individualPlatformIcons, setIndividualPlatformIcons] = useState([])
+
   
   
 
@@ -44,7 +45,8 @@ function Home() {
       setIsLoading(true);
       setOrdering(data[0]);
       setMetacritic("80, 100")
-      setSearch('')
+      
+      console.log("search has been cleared by order by")
   }
 
   function handleDataFromPlatformSelect(data) {
@@ -59,10 +61,11 @@ function Home() {
       console.log("Search data:", data);
       setSearch(data);
       setMetacritic(metacriticClear);
-      console.log("Metacritic clear:", metacriticClear);
       setDateRange(dateClear);
-      console.log("Date clear:", dateClear);
+      
+
       setReload(!reload);// Trigger a reload incase the data is the same
+      handleChangeToCards();
   }
 
   function handleDataFromSidebar(data, metacriticClear) {
@@ -133,7 +136,7 @@ function Home() {
       fetchData();
 
       
-      console.log("Is loading set to false");
+      
 
   }, [Ordering, search, parentPlatforms, dateRange, reload]) // Add Ordering and search as dependencies
 
@@ -149,7 +152,7 @@ function Home() {
       return (
         <Box>
           <Flex direction="column" justifyContent="space-between" alignItems="start" p={4} color="white">
-            <Text color="white" textStyle="7xl" fontWeight="bolder">New and Trending</Text>
+            <Text color="white" textStyle="7xl" fontWeight="bolder">{search == ""?(<Text>New and Trending</Text>):(<Text>Searched: "{search}"</Text>)}</Text>
             <Text>Based on player counts and release date</Text>
             <Flex>
               <OrderBySelect sendDataToParent={handleDataFromOrderBy}/>
@@ -157,7 +160,7 @@ function Home() {
             </Flex>
           </Flex>
           <div className="grid">
-            {getGames()}
+            {cardsData ? getGames(): <Text color="white" mt="8" textStyle="2xl" fontWeight="bold" letterSpacing="tight">No games found for the given parameters.</Text>}
           </div>
         </Box>
       )

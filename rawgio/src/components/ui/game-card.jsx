@@ -1,6 +1,5 @@
 import { Box, Button, Card, Image, Text, Separator, Flex } from "@chakra-ui/react"
 import { FaLinux, FaXbox, FaPlaystation, FaWindows, FaApple, FaPlus } from "react-icons/fa";
-import { SiNintendo } from "react-icons/si";
 import { IoLogoAppleAppstore } from "react-icons/io5";
 import { DiAndroid } from "react-icons/di";
 import { TbSquareRoundedLetterN } from "react-icons/tb";

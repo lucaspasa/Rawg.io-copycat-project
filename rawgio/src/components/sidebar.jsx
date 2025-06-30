@@ -1,15 +1,43 @@
-import { Box, Stack, Link } from "@chakra-ui/react"
-import { BsFire } from "react-icons/bs";
-import { FaStar, FaFastForward, FaCrown, FaWindows, FaPlaystation, FaXbox } from "react-icons/fa";
+import { Box, Stack, Link, Text } from "@chakra-ui/react"
+import { BsFire, BsChat  } from "react-icons/bs";
+import { TbSquareRoundedLetterN } from "react-icons/tb";
+import { FaStar, FaFastForward, FaCrown, FaWindows, FaPlaystation, FaXbox, FaApple, FaGhost, FaHashtag, FaChessPawn, FaCrosshairs,FaCar   } from "react-icons/fa";
+import { DiAndroid } from "react-icons/di";
 import { MdStyle } from "react-icons/md";
 import { HiMiniTrophy } from "react-icons/hi2";
-import { FaRankingStar, FaFolderOpen, FaChevronDown  } from "react-icons/fa6";
-import { IoGameController } from "react-icons/io5";
+import { FaRankingStar, FaFolderOpen, FaChevronDown, FaChevronUp  } from "react-icons/fa6";
+import { IoGameController, IoPerson, IoCodeSlash, IoExtensionPuzzle    } from "react-icons/io5";
 import { IoMdDownload } from "react-icons/io";
+import { PiCardsBold, PiPersonSimpleHikeBold, PiStrategyBold } from "react-icons/pi";
+import { HiExternalLink } from "react-icons/hi";
+import { TbSword } from "react-icons/tb";
+import { GiBlackKnightHelm } from "react-icons/gi";
+
+
+
+
 import { useEffect, useState } from "react";    
 
 
 export const Sidebar = ({sendDataToParent, handleChangeToCards}) => {
+    const [sidebarBrowseOpen, setSidebarBrowswOpen] = useState(false);
+    const [sidebarPlatformsOpen, setSidebarPlatformsOpen] = useState(false);
+    const [sidebarGenresOpen, setSidebarGenresOpen] = useState(false);
+
+    // Function to toggle the sidebar browse section
+    const toggleSidebarBrowse = () => {
+      setSidebarBrowswOpen(!sidebarBrowseOpen);
+    };
+    // Function to toggle the sidebar platforms section
+    const toggleSidebarPlatforms = () => { 
+        setSidebarPlatformsOpen(!sidebarPlatformsOpen);
+    }
+
+    // Function to toggle the sidebar genres section
+    const toggleSidebarGenres = () => {
+        setSidebarGenresOpen(!sidebarGenresOpen);
+    }
+
     // Date Variables
     const date = new Date();
     let day = date.getDate();
@@ -64,11 +92,11 @@ export const Sidebar = ({sendDataToParent, handleChangeToCards}) => {
     // Calculate the next 7 days date with leading zero if needed
     if (day > 24){
         let nextMonthDay = Number(day) - 24; // Calculate how many days to subtract to get to the next 7 days
-        
+        let nextmonth = Number(month) + 1;
         if (month == 12){
             next7Days = `${year + 1}-01-${day - 24}`;
         } else {
-            next7Days = `${year}-${(month + 1) < 10 ? "0"+ (month+1): month +1}-${nextMonthDay < 10 ? "0"+ nextMonthDay : nextMonthDay}`;
+            next7Days = `${year}-${(nextmonth) < 10 ? "0"+ (nextmonth): nextmonth}-${nextMonthDay < 10 ? "0"+ nextMonthDay : nextMonthDay}`;
         }
     } else {
         let nextWeekDay = Number(day) + 7; // Calculate how many days to add to get to the next 7 days
@@ -87,22 +115,22 @@ export const Sidebar = ({sendDataToParent, handleChangeToCards}) => {
     
     return(
   <Stack align="start" minW="220px" listStylePosition="inside">
-    <Box className="sidebar-link" onClick={() => { dateRange == "" ? setDateRange(undefined): setDateRange("");}} textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Home</Box> 
+    <Box className="sidebar-link" onClick={() => { dateRange == "" ? setDateRange(undefined): setDateRange("");console.log("home was pressed")}} textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="67px">Home</Box> 
     <Link href="https://rawg.io/reviews/popular"><Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Reviews</Box></Link>
     <Stack align="start">
         <Box  textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">New Releases</Box>
 
-        <Stack className="list" align="start" as="ul" listStyleType="none" spacing={2}>
+        <Stack mt="3" className="list" align="start" as="ul" listStyleType="none" spacing={2}>
             <li className="sidebar-sort" onClick={() => {setDateRange(last30Days+","+currentDate); setMetacritic("")}}><Box className="sidebar-icon" ><FaStar /></Box>Last 30 Days</li>
             <li className="sidebar-sort" onClick={() => {setDateRange(last7Days+","+currentDate); setMetacritic("")}}><Box className="sidebar-icon" ><BsFire /></Box>This Week</li>
             <li className="sidebar-sort" onClick={() => {setDateRange(currentDate+","+next7Days); setMetacritic("")}}><Box className="sidebar-icon" ><FaFastForward /></Box>Next Week</li>
-            <li className="sidebar-sort" onClick={() => {setDateRange(currentDate+","+next30Days); setMetacritic("")}}><Box className="sidebar-icon" id="sidebar-icon-31" >31</Box>Release Calander</li>
+            <li className="sidebar-sort" onClick={() => {setDateRange(currentDate+","+next30Days); setMetacritic("")}}><Box className="sidebar-icon" fontWeight="bolder" pt="-0.5" pb="-0.5" id="sidebar-icon-31" >31</Box>Release Calander</li>
         </Stack>
     </Stack>
     <Stack align="start">
         <Box textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Top</Box>
 
-        <Stack className="list" align="start" as="ul" listStyleType="none" spacing={2}>
+        <Stack mt="3" className="list" align="start" as="ul" listStyleType="none" spacing={2}>
             <li className="sidebar-sort" onClick={() => {setDateRange("2025-01-01,2025-12-31"); setMetacritic("50, 100")}}><Box className="sidebar-icon" ><HiMiniTrophy /></Box>Best of the year</li>
             <li className="sidebar-sort" onClick={() => {setDateRange("2024-01-01,2024-12-31"); setMetacritic("80, 100")}}><Box className="sidebar-icon" ><FaRankingStar /></Box>Popular in 2024</li>
             <li className="sidebar-sort" onClick={() => setDateRange("2010-01-01,2018-12-31")}><Box className="sidebar-icon" ><FaCrown  /></Box>All time top 250</li>
@@ -110,34 +138,50 @@ export const Sidebar = ({sendDataToParent, handleChangeToCards}) => {
     </Stack>
     <Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4" onClick={() => { dateRange == "" ? setDateRange(undefined): setDateRange("");}}>All Games</Box>
     <Stack align="start">
-        <Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Browse</Box>
+        <Link href="https://rawg.io/games/browse" target="_blank"><Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Browse</Box></Link>
 
-        <Stack className="list" align="start" as="ul" listStyleType="none" spacing={2}>
-            <li className="sidebar-sort"><Box className="sidebar-icon" ><IoGameController /></Box>Platforms</li>
-            <li className="sidebar-sort"><Box className="sidebar-icon" ><IoMdDownload /></Box>Stores</li>
-            <li className="sidebar-sort"><Box className="sidebar-icon" ><FaFolderOpen  /></Box>Collections</li>
-            <li className="show-all sidebar-sort"><Box className="sidebar-icon" ><FaChevronDown  /></Box>Show All</li>
+        <Stack mt="3" className="list" align="start" as="ul" listStyleType="none" spacing={2}>
+            <Link href="https://rawg.io/games/browse" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><IoGameController /></Box>Platforms</li></Link>
+            <Link href="https://rawg.io/stores" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><IoMdDownload /></Box>Stores</li></Link>
+            <Link href="https://rawg.io/collections/popular" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><FaFolderOpen  /></Box>Collections</li></Link>
+            {sidebarBrowseOpen && (<Link href="https://rawg.io/reviews/popular" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><BsChat /></Box>Reviews</li></Link>)}
+            {sidebarBrowseOpen && (<Link href="https://rawg.io/genres" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><FaGhost /></Box>Genres</li></Link>)}
+            {sidebarBrowseOpen && (<Link href="https://rawg.io/creators" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><IoPerson /></Box>Creators</li></Link>)}
+            {sidebarBrowseOpen && (<Link href="https://rawg.io/tags" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><FaHashtag/></Box>Tags</li></Link>)}
+            {sidebarBrowseOpen && (<Link href="https://rawg.io/developers" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><IoCodeSlash/></Box>Developers</li></Link>)}
+            {sidebarBrowseOpen && (<Link href="https://rawg.io/publishers" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><PiCardsBold   /></Box>Publishers</li></Link>)}
+            <li className="show-all sidebar-sort" onClick={toggleSidebarBrowse}>{sidebarBrowseOpen?(<><Box className="sidebar-icon" ><FaChevronUp  /></Box><Text>Hide</Text></>): (<><Box className="sidebar-icon" ><FaChevronDown  /></Box><Text>Show All</Text></>)}</li>
         </Stack>
     </Stack>
     <Stack align="start">
-        <Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Platforms</Box>
+        <Link href="https://rawg.io/platforms" target="_blank"><Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Platforms</Box></Link>
 
-        <Stack className="list"align="start" as="ul" listStyleType="none" spacing={2}>
-            <li className="sidebar-sort"><Box className="sidebar-icon" ><FaWindows  /></Box>PC</li>
-            <li className="sidebar-sort"><Box className="sidebar-icon" ><FaPlaystation  /></Box>Playstation 4</li>
-            <li className="sidebar-sort"><Box className="sidebar-icon" ><FaXbox  /></Box>Xbox One</li>
-            <li className="show-all sidebar-sort"><Box className="sidebar-icon" ><FaChevronDown  /></Box>Show All</li>
+        <Stack mt="3" className="list"align="start" as="ul" listStyleType="none" spacing={2}>
+            <Link href="https://rawg.io/games/pc" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><FaWindows  /></Box>PC</li></Link>
+            <Link href="https://rawg.io/games/playstation4" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><FaPlaystation  /></Box>Playstation 4</li></Link>
+            <Link href="https://rawg.io/games/xbox-one" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><FaXbox  /></Box>Xbox One</li></Link>
+            {sidebarPlatformsOpen && (<Link href="https://rawg.io/games/nintendo-switch" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><TbSquareRoundedLetterN  /></Box>Nintendo Switch</li></Link>)}
+            {sidebarPlatformsOpen && (<Link href="https://rawg.io/games/ios" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><FaApple  /></Box>iOS</li></Link>)}
+            {sidebarPlatformsOpen && (<Link href="https://rawg.io/games/android" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><DiAndroid  /></Box>Andriod</li></Link>)}
+
+            <li className="show-all sidebar-sort" onClick={toggleSidebarPlatforms}>{sidebarPlatformsOpen?(<><Box className="sidebar-icon" ><FaChevronUp  /></Box><Text>Hide</Text></>): (<><Box className="sidebar-icon" ><FaChevronDown  /></Box><Text>Show All</Text></>)}</li>
 
         </Stack>
     </Stack>
     <Stack className="list" align="start">
-        <Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Genres</Box>
+        <Link href="https://rawg.io/genres" target="_blank"><Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Genres</Box></Link>
 
-        <Stack className="list" align="start" as="ul" listStyleType="none" spacing={2}>
-            <li className="sidebar-sort"><Box className="sidebar-icon" ><MdStyle /></Box>Free Online Games</li>
-            <li className="sidebar-sort"><Box className="sidebar-icon" ><MdStyle /></Box>Action</li>
-            <li className="sidebar-sort"><Box className="sidebar-icon" ><MdStyle /></Box>Strategy</li>
-            <li className="show-all sidebar-sort"><Box className="sidebar-icon" ><FaChevronDown  /></Box>Show All</li>
+        <Stack mt="3" className="list" align="start" as="ul" listStyleType="none" spacing={2}>
+            <Link href="https://www.desura.games/" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><HiExternalLink /></Box>Free Online Games</li></Link>
+            <Link href="https://rawg.io/games/action" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><TbSword  /></Box>Action</li></Link>
+            <Link href="https://rawg.io/games/strategy" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><FaChessPawn /></Box>Strategy</li></Link>
+            {sidebarGenresOpen && (<Link href="https://rawg.io/games/rpg" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><GiBlackKnightHelm   /></Box>RPG</li></Link>)}
+            {sidebarGenresOpen && (<Link href="https://rawg.io/games/shooter" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><FaCrosshairs /></Box>Shooter</li></Link>)}
+            {sidebarGenresOpen && (<Link href="https://rawg.io/games/adventure" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><PiPersonSimpleHikeBold   /></Box>Adventure</li></Link>)}
+            {sidebarGenresOpen && (<Link href="https://rawg.io/games/puzzle" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><IoExtensionPuzzle   /></Box>Puzzle</li></Link>)}
+            {sidebarGenresOpen && (<Link href="https://rawg.io/games/racing" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><FaCar   /></Box>Racing</li></Link>)}
+            {sidebarGenresOpen && (<Link href="https://rawg.io/games/sports" target="_blank"><li className="sidebar-sort"><Box className="sidebar-icon" ><PiStrategyBold   /></Box>Sports</li></Link>)}
+            <li className="show-all sidebar-sort" onClick={toggleSidebarGenres}>{sidebarGenresOpen?(<><Box className="sidebar-icon" ><FaChevronUp  /></Box><Text>Hide</Text></>): (<><Box className="sidebar-icon" ><FaChevronDown  /></Box><Text>Show All</Text></>)}</li>
 
         </Stack>
     </Stack>

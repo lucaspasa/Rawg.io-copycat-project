@@ -81,13 +81,18 @@ background-color: white;
 
 .list li{
   display: flex;
+  margin-bottom: .5em;
 }
+
+
+
 
 .sidebar-icon{
   background-color: #242424;
   padding: 5px;
   margin-right: 10px;
   border-radius: 25%;
+  transform: scale(1.2);
 }
 
 #sidebar-icon-31{
@@ -105,9 +110,15 @@ background-color: white;
   cursor: pointer;
 }
 
+.sidebar-sort {
+  color: white;
+  font-weight: 400;
+}
+
 .sidebar-sort:hover {
   cursor: pointer;
   transition: .25s;
+  color: white;
 }
 
 .sidebar-sort:hover .sidebar-icon{
@@ -117,6 +128,8 @@ background-color: white;
   cursor: pointer;
   transition: .25s;
 }
+
+
 
 .RAWG-logo{
   color: white;

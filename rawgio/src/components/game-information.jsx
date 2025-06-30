@@ -45,7 +45,7 @@ let images = cardGameInfo.short_screenshots ? cardGameInfo.short_screenshots : [
           (<Text flexDirection="row" display="flex" className="game-icons"> {platformIcons}</Text>)}{data.playtime>0 && 
           (<Text mx="1em"> AVERAGE PLAYTIME: {data.playtime} HOURS</Text>)} 
           </Box>
-        <Box mt={4} fontSize="7xl" fontWeight="bolder" > {data.name ? data.name : "This game did not load properly"}</Box>
+        <Box mt={4} fontSize="7xl" fontWeight="bolder" lineHeight="1.1" > {data.name ? data.name : "This game did not load properly"}</Box>
         <Box  display="flex" mt={5} fontSize="md" >
           <Link target="_blank" href="https://rawg.io/signup"><Button size="xl" className="game-information-add-to-button" variant="solid" fontSize="lg" pb="1em" fontWeight="thin"><Text fontSize="xs" mb="-1.5em" color="grey">Add to</Text>My games</Button> </Link> 
            <Link target="_blank" href="https://rawg.io/signup"><Button size="xl" className="game-information-add-to-button" variant="outline" fontSize="lg" pb="1em" fontWeight="thin" borderWidth="1px" borderColor="gray.700"><Text fontSize="xs" mb="-1.5em" color="grey">Add to</Text> My Wishlist</Button> </Link>
@@ -151,7 +151,7 @@ let images = cardGameInfo.short_screenshots ? cardGameInfo.short_screenshots : [
             <Box mt="2" mb="2" color="gray.500"> Where to buy</Box>
             <HStack wrap="wrap" gap="6">
             {data.stores.map((store, index) => (
-              <Link target="_blank" href={store.store.domain?"https://" + store.store.domain:"https://steam.com"}><Button key={index} className="game-information-store-button" w="180px" variant="subtle" fontWeight="400" backgroundColor="gray.800" fontSize="md"  color="gray.400">
+              <Link key={index} target="_blank" href={store.store.domain?"https://" + store.store.domain:"https://steam.com"}><Button  className="game-information-store-button" w="180px" variant="subtle" fontWeight="400" backgroundColor="gray.800" fontSize="md"  color="gray.400">
                 
                 {store.store.name}
                 <Image src={store.store.image_background} alt={store.store.name} boxSize="24px"  borderRadius="full" mr="2" />
