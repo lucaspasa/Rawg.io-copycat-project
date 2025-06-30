@@ -47,20 +47,20 @@ let images = cardGameInfo.short_screenshots ? cardGameInfo.short_screenshots : [
           </Box>
         <Box mt={4} fontSize="7xl" fontWeight="bolder" > {data.name ? data.name : "This game did not load properly"}</Box>
         <Box  display="flex" mt={5} fontSize="md" >
-           <Button size="xl" className="game-information-add-to-button" variant="solid" fontSize="lg" pb="1em" fontWeight="thin"><Text fontSize="xs" mb="-1.5em" color="grey">Add to</Text>My games</Button> 
-           <Button size="xl" className="game-information-add-to-button" variant="outline" fontSize="lg" pb="1em" fontWeight="thin" borderWidth="1px" borderColor="gray.700"><Text fontSize="xs" mb="-1.5em" color="grey">Add to</Text> My Wishlist</Button> 
-           <Button size="xl" className="game-information-add-to-button" variant="plain" fontSize="lg" pb="1em" fontWeight="thin"><Text fontSize="xs" mb="-1.5em" color="grey">Add to</Text>My Collection</Button>
+          <Link target="_blank" href="https://rawg.io/signup"><Button size="xl" className="game-information-add-to-button" variant="solid" fontSize="lg" pb="1em" fontWeight="thin"><Text fontSize="xs" mb="-1.5em" color="grey">Add to</Text>My games</Button> </Link> 
+           <Link target="_blank" href="https://rawg.io/signup"><Button size="xl" className="game-information-add-to-button" variant="outline" fontSize="lg" pb="1em" fontWeight="thin" borderWidth="1px" borderColor="gray.700"><Text fontSize="xs" mb="-1.5em" color="grey">Add to</Text> My Wishlist</Button> </Link>
+           <Link target="_blank" href="https://rawg.io/signup"><Button size="xl" className="game-information-add-to-button" variant="plain" fontSize="lg" pb="1em" fontWeight="thin"><Text fontSize="xs" mb="-1.5em" color="grey">Add to</Text>My Collection</Button></Link>
         </Box>
         <Box mt="5" fontSize="md" >
           <Text>Overall rating {data.rating ? data.rating : "No Rating"}/5</Text>
           <Text fontSize="xs" color="gray">{data.ratings_count ? data.ratings_count.toLocaleString('en') : "0"} RATINGS</Text>
           </Box>
         <Box mt="5" fontSize="md" >
-          <Button w="180px" className="game-information-rate-button" borderWidth="1px" borderColor="gray.700" fontSize="md" fontWeight="400" backgroundColor="gray.800" color="gray.300">Click to rate</Button> 
+          <Link target="_blank" href="https://rawg.io/signup"><Button w="180px" className="game-information-rate-button" borderWidth="1px" borderColor="gray.700" fontSize="md" fontWeight="400" backgroundColor="gray.800" color="gray.300">Click to rate</Button> </Link>
         </Box>
         <Box mt="5" fontSize="md" >
-          <Button className="game-information-review-button" w="180px" borderWidth="1px" borderColor="gray.700" mr="1em" variant="surface" fontWeight="400" backgroundColor="gray.800" fontSize="md"  color="gray.300">Write a review</Button>
-          <Button className="game-information-review-button" w="180px" borderWidth="1px" borderColor="gray.700" variant="surface" fontWeight="400" backgroundColor="gray.800" fontSize="md"  color="gray.300">Write a comment</Button>
+          <Link target="_blank" href="https://rawg.io/signup"><Button className="game-information-review-button" w="180px" borderWidth="1px" borderColor="gray.700" mr="1em" variant="surface" fontWeight="400" backgroundColor="gray.800" fontSize="md"  color="gray.300">Write a review</Button></Link>
+          <Link target="_blank" href="https://rawg.io/signup"><Button className="game-information-review-button" w="180px" borderWidth="1px" borderColor="gray.700" variant="surface" fontWeight="400" backgroundColor="gray.800" fontSize="md"  color="gray.300">Write a comment</Button></Link>
           </Box>
         <Box mt={5} fontSize="md" >
           <Box mt="5" fontWeight="bolder" fontSize="2xl" >About</Box>
@@ -68,57 +68,67 @@ let images = cardGameInfo.short_screenshots ? cardGameInfo.short_screenshots : [
 
         </Box>
         <Box mt={5} fontSize="md" >
-          <Box mt={2} fontSize="md" >Metascore:</Box>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500">Metascore</Box>
           <Text>{data.metacritic?data.metacritic:"No Metacritic score available"}</Text>
         </Box><Box mt={2} fontSize="md" >
-          <Box mt={2} fontSize="md" >Release Date:</Box>
-          <Text>{data.released ? data.released : "TBA"}</Text>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500" >Release Date</Box>
+          <Text>{data.released ? formattedDate : "TBA"}</Text>
         </Box>
         
         {data && data.publishers && data.publishers.length > 0 && (
         <Box mt={2} fontSize="md" >
-          <Box mt={2} fontSize="md" >Publisher:</Box>
-          <Text>{data.publishers[0].name}</Text>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500" >Publisher{data.publishers.length>1 && ("s")}:</Box>
+          {data.publishers.map((publisher, index) => (
+            <Text key={index} display="inline" >{index>0 && (", ")}{publisher.name}</Text>
+          ))}
         </Box>)}
         
         {data.platforms.length > 0 && (
         <Box mt={2} fontSize="md" >
-          <Box mt={2} fontSize="md" >Platforms:</Box>
-          <Text>{data.platforms[0].platform.name}</Text>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500" >Platform{data.platforms.length>1 && ("s")}</Box>
+          {data.platforms.map((platform, index) => (
+            <Text key={index} display="inline" >{index>0 && (", ")}{platform.platform.name}</Text>
+          ))}
         </Box>)}
         
         {data.genres.length > 0 && (<Box mt={2} fontSize="md" >
-          <Box mt={2} fontSize="md" >Genre:</Box>
-          <Text>{data.genres[0].name}</Text>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500" >Genre{data.genres.length>1 && ("s")}</Box>
+          {data.genres.map((genre, index) => (
+            <Text key={index} display="inline" >{index>0 && (", ")}{genre.name}</Text>
+          ))}
         </Box>)}
 
         {data.developers.length > 0 && (<Box mt={2} fontSize="md" >
-          <Box mt={2} fontSize="md" >Developer:</Box>
-          <Text>{data.developers[0].name}</Text>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500" >Developer{data.developers.length>1 && ("s")}</Box>
+          {data.developers.map((developer, index) => (
+            <Text key={index} display="inline" >{index>0 && (", ")}{developer.name}</Text>
+          ))}
         </Box>)}
 
         <Box mt={2} fontSize="md" >
-          <Box mt={2} fontSize="md" >Age Rating:</Box>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500" >Age Rating</Box>
           <Text>{data.esrb_rating?data.esrb_rating.name:"Game not rated"}</Text>
         </Box>
         
         {data.game_series_count > 0 && (<Box mt={2} fontSize="md" >
-          <Box mt={2} fontSize="md" >Other Games in Series:</Box>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500">Other Games in Series</Box>
           <Text>{data.game_series_count}</Text>
         </Box>)}
         
         {data.additions_count > 0 && (<Box mt={2} fontSize="md" >
-          <Box mt={2} fontSize="md" >DLC's and editions:</Box>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500">DLC's and editions</Box>
           <Text>{data.additions_count}</Text>
         </Box>)}
         
         {data.tags.length > 0 && (<Box mt={2} fontSize="md" >
-          <Box mt={2} fontSize="md" >Tags:</Box>
-          <Text>{data.tags[0].name}</Text>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500" >Tag{data.tags.length>1 && ("s")}</Box>
+          {data.tags.map((tag, index) => (
+            <Text key={index} display="inline" >{index>0 && (", ")}{tag.name}</Text>
+          ))}
         </Box>)}
         
         {data.website && (<Box mt={2} fontSize="md" >
-          <Box mt={2} fontSize="md" >Website:</Box>
+          <Box mt={3} mb="1" fontSize="sm" color="gray.500" >Website</Box>
           <Link>{data.website}</Link>
         </Box>)}
 
@@ -135,17 +145,17 @@ let images = cardGameInfo.short_screenshots ? cardGameInfo.short_screenshots : [
             {images[5] && (<Image rounded="lg" mt=".5em" w="184px"src={images[5].image}></Image>)}
           </Box>)}
         </Box>)}
-        <Button w="384px" p="25px" mt={5} fontSize="md" >Edit Game Info</Button>
+        <Link target="_blank" href="https://rawg.io/signup"><Button w="384px" p="25px" mt={5} fontSize="md" >Edit Game Info</Button></Link>
         {data.stores.length>0 &&(
           <Box mt={5} fontSize="md">
             <Box mt="2" mb="2" color="gray.500"> Where to buy</Box>
             <HStack wrap="wrap" gap="6">
             {data.stores.map((store, index) => (
-              <Button key={index} className="game-information-store-button" w="180px" variant="subtle" fontWeight="400" backgroundColor="gray.800" fontSize="md"  color="gray.400">
+              <Link target="_blank" href={store.store.domain?"https://" + store.store.domain:"https://steam.com"}><Button key={index} className="game-information-store-button" w="180px" variant="subtle" fontWeight="400" backgroundColor="gray.800" fontSize="md"  color="gray.400">
                 
                 {store.store.name}
                 <Image src={store.store.image_background} alt={store.store.name} boxSize="24px"  borderRadius="full" mr="2" />
-              </Button>
+              </Button></Link>
             ))}
             </HStack>
           </Box>)}

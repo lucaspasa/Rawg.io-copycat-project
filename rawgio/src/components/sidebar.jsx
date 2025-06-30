@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/react"
+import { Box, Stack, Link } from "@chakra-ui/react"
 import { BsFire } from "react-icons/bs";
 import { FaStar, FaFastForward, FaCrown, FaWindows, FaPlaystation, FaXbox } from "react-icons/fa";
 import { MdStyle } from "react-icons/md";
@@ -88,7 +88,7 @@ export const Sidebar = ({sendDataToParent, handleChangeToCards}) => {
     return(
   <Stack align="start" minW="220px" listStylePosition="inside">
     <Box className="sidebar-link" onClick={() => { dateRange == "" ? setDateRange(undefined): setDateRange("");}} textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Home</Box> 
-    <Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Reviews</Box>
+    <Link href="https://rawg.io/reviews/popular"><Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Reviews</Box></Link>
     <Stack align="start">
         <Box  textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">New Releases</Box>
 
@@ -108,7 +108,7 @@ export const Sidebar = ({sendDataToParent, handleChangeToCards}) => {
             <li className="sidebar-sort" onClick={() => setDateRange("2010-01-01,2018-12-31")}><Box className="sidebar-icon" ><FaCrown  /></Box>All time top 250</li>
         </Stack>
     </Stack>
-    <Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">All Games</Box>
+    <Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4" onClick={() => { dateRange == "" ? setDateRange(undefined): setDateRange("");}}>All Games</Box>
     <Stack align="start">
         <Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Browse</Box>
 
