@@ -118,7 +118,7 @@ export const Sidebar = ({sendDataToParent, handleChangeToCards}) => {
     <Box className="sidebar-link" onClick={() => { dateRange == "" ? setDateRange(undefined): setDateRange("");console.log("home was pressed")}} textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="67px">Home</Box> 
     <Link href="https://rawg.io/reviews/popular"><Box className="sidebar-link" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Reviews</Box></Link>
     <Stack align="start">
-        <Box  textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">New Releases</Box>
+        <Box color="white" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">New Releases</Box>
 
         <Stack mt="3" className="list" align="start" as="ul" listStyleType="none" spacing={2}>
             <li className="sidebar-sort" onClick={() => {setDateRange(last30Days+","+currentDate); setMetacritic("")}}><Box className="sidebar-icon" ><FaStar /></Box>Last 30 Days</li>
@@ -128,11 +128,11 @@ export const Sidebar = ({sendDataToParent, handleChangeToCards}) => {
         </Stack>
     </Stack>
     <Stack align="start">
-        <Box textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Top</Box>
+        <Box color="white" textStyle="2xl" fontWeight="bold" letterSpacing="tight" mt="4">Top</Box>
 
         <Stack mt="3" className="list" align="start" as="ul" listStyleType="none" spacing={2}>
-            <li className="sidebar-sort" onClick={() => {setDateRange("2025-01-01,2025-12-31"); setMetacritic("50, 100")}}><Box className="sidebar-icon" ><HiMiniTrophy /></Box>Best of the year</li>
-            <li className="sidebar-sort" onClick={() => {setDateRange("2024-01-01,2024-12-31"); setMetacritic("80, 100")}}><Box className="sidebar-icon" ><FaRankingStar /></Box>Popular in 2024</li>
+            <li className="sidebar-sort" onClick={() => {setDateRange("2025-01-01,2025-12-31"); setMetacritic("0, 100")}}><Box className="sidebar-icon" ><HiMiniTrophy /></Box>Best of the year</li>
+            <li className="sidebar-sort" onClick={() => {setDateRange("2024-01-01,2024-12-31"); setMetacritic("0, 100")}}><Box className="sidebar-icon" ><FaRankingStar /></Box>Popular in 2024</li>
             <li className="sidebar-sort" onClick={() => setDateRange("2010-01-01,2018-12-31")}><Box className="sidebar-icon" ><FaCrown  /></Box>All time top 250</li>
         </Stack>
     </Stack>
