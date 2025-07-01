@@ -160,7 +160,7 @@ function Home() {
             </Flex>
           </Flex>
           <div className="grid">
-            {cardsData || cardsData.length>0 ? getGames() : <Text color="white" mt="8" textStyle="2xl" fontWeight="bold" letterSpacing="tight">No games found for the given parameters.</Text>}
+            {cardsData ? getGames() : <Text color="white" mt="8" textStyle="2xl" fontWeight="bold" letterSpacing="tight">No games found for the given parameters.</Text>}
           </div>
         </Box>
       )
